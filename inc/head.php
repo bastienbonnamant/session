@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+if(isset($_POST['loginname']))
+{
+    $_SESSION['loginname'] = $_POST['loginname'];
+    var_dump($_POST);
+    var_dump($_SESSION);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +46,16 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+                    <?php
+                    if(!empty($_SESSION['loginname']))
+                    {
+                        echo '<a href="/disconnect.php"><input type="button" value="Se deconnecter"></a>';
+                    }
+                    else{
+                        echo '<a href="/login.php"><input type="button" value="Connecter"></a>';
+                    }
+
+                    ?>
                     <li><a href="#">Chocolates chips</a></li>
                     <li><a href="#">Nuts</a></li>
                     <li><a href="#">Gluten full</a></li>
@@ -48,6 +70,17 @@
         </div><!-- /.container-fluid -->
     </nav>
     <div class="container-fluid text-right">
-        <strong>Hello Wilder !</strong>
+        <strong>Hello <?php
+            if(empty($_SESSION['loginname']))
+            {
+                echo 'Wilder !';
+            }
+            else{
+                echo $_SESSION['loginname'];
+            }
+
+
+
+            ?></strong>
     </div>
 </header>
